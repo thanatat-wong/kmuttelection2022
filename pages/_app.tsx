@@ -8,9 +8,6 @@ import Script from "next/script";
 import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig()
-if (publicRuntimeConfig?.API_MOCKING === 'enabled') {
-  require('./../tests/setup/msw/index')
-}
 
 function MyApp({ Component, pageProps }) {
   return (

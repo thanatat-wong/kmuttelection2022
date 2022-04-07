@@ -13,7 +13,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        orange: colors.orange,
+        base_yellow: '#F6C950',
+        base_orange: '#E7542F',
+        base_gray: '#7C8289',
+        base_green: '#8DC53E',
+        dim_gray: '#C4C4C4',
+        dark_orange: '#C4502F',
+        dark_gray: '#2F3336',
       },
     },
   },

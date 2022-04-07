@@ -1,11 +1,10 @@
-import HomePage from '@core/pages/home_page'
-import React from 'react'
+import { coreContext } from 'context/core_context'
+import React, { useContext } from 'react'
 
 const HomeRoute = () => {
-  //---------------------
-  //  RENDER
-  //---------------------
-  return <HomePage />
+  const context = useContext(coreContext)
+
+  return <div></div>
 }
 
 export default HomeRoute

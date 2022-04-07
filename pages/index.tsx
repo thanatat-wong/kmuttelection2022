@@ -1,3 +1,10 @@
+import ConfirmProfile from "components/confirm_profile";
+import ConfirmStep1 from "components/confirm_step_1";
+import ConfirmStep2 from "components/confirm_step_2";
+import Finish from "components/finish";
+import Login from "components/login";
+import SelectStep1 from "components/select_step_1";
+import SelectStep2 from "components/select_step_2";
 import { coreContext } from "context/core_context";
 import { Observer } from "mobx-react-lite";
 import Image from "next/image";
@@ -30,13 +37,13 @@ const HomeRoute = () => {
               </div>
             </div>
           )}
-          {context.step === 1}
-          {context.step === 2}
-          {context.step === 3}
-          {context.step === 4}
-          {context.step === 5}
-          {context.step === 6}
-          {context.step === 7}
+          {context.step === 1 && <Login />}
+          {context.step === 2 && <ConfirmProfile />}
+          {context.step === 3 && <SelectStep1 />}
+          {context.step === 4 && <ConfirmStep1 />}
+          {context.step === 5 && <SelectStep2 />}
+          {context.step === 6 && <ConfirmStep2 />}
+          {context.step === 7 && <Finish />}
         </div>
       )}
     </Observer>

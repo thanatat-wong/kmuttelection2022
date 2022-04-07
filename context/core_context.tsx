@@ -2,7 +2,7 @@ import { createContext } from 'react'
 import { makeAutoObservable } from 'mobx'
 
 class CoreContext {
-  step: number = 1
+  step: number = 7
 
   constructor() {
     makeAutoObservable(this)

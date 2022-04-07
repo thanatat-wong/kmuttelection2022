@@ -7,6 +7,10 @@ class CoreContext {
   constructor() {
     makeAutoObservable(this)
   }
+
+  setValue = (name, value) => {
+    this[name] = value
+  }
 }
 
 export const coreContext = createContext(new CoreContext())

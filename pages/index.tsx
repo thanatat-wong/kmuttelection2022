@@ -19,10 +19,10 @@ const HomeRoute = () => {
   return (
     <Observer>
       {() => (
-        <div className="w-screen h-screen bg-base_yellow">
+        <div className="w-screen min-h-screen max-h-max bg-base_yellow">
           {context.step !== 1 && (
-            <div className="h-[10vh] w-full absolute top-0 flex flex-col text-white">
-              <div className="flex items-center w-full text-[10px] justify-center h-1/3 bg-base_orange">
+            <div className="h-[10vh] w-full sticky top-0 flex flex-col text-white">
+              <div className="flex items-center w-full text-[11px] justify-center h-1/3 bg-base_orange">
                 การเลือกตั้งคณะกรรมการองค์การบริหารองค์การนักศึกษาและสภานักศึกษา
                 มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
               </div>

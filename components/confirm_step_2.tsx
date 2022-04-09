@@ -62,8 +62,8 @@ const ConfirmStep2 = () => {
             <p>คุณจะยืนยันการเลือกหรือไม่</p>
           </div>
           <div className="flex space-x-[6px]">
-            <Button color="gray" title="แก้ไข" onClick={() => null} />
-            <Button color="orange" title="เสร็จสิ้น" onClick={() => null} />
+            <Button color="gray" title="แก้ไข" onClick={() => context.stepDown()} />
+            <Button color="orange" title="เสร็จสิ้น" onClick={() => context.stepUp()} />
           </div>
         </div>
       )}

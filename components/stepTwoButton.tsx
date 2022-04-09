@@ -9,7 +9,7 @@ interface ButtonProp {
 const StepTwoButton = ({ color, active, onClick }: ButtonProp) => {
   return (
     <div
-      className={`w-[53px] h-[16px] rounded-[2px] text-[13px] flex items-center justify-center shadow-md cursor-pointer ${
+      className={`w-[53px] h-[16px] rounded-[2px] text-[13px] flex items-center justify-center shadow-gray-400 shadow-md cursor-pointer ${
         color === "orange" && active && "bg-base_orange text-white"
       } ${color === "green" && active && "bg-base_green text-black"} ${
         color === "gray" && active && "bg-dim_gray text-black"

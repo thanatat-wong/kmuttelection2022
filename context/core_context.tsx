@@ -11,6 +11,14 @@ class CoreContext {
   setValue = (name, value) => {
     this[name] = value
   }
+
+  stepUp = () => {
+    this.step++
+  }
+
+  stepDown = () => {
+    this.step--
+  }
 }
 
 export const coreContext = createContext(new CoreContext())

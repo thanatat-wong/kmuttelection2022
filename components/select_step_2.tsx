@@ -53,7 +53,7 @@ const SelectStep2 = () => {
               </div>
             </div>
           </div>
-          <Button color="orange" title="ยืนยัน" onClick={() => null} />
+          <Button color="orange" title="ยืนยัน" onClick={() => context.stepUp()} />
         </div>
       )}
     </Observer>

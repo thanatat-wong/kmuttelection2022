@@ -67,7 +67,7 @@ const ConfirmStep1 = () => {
             <div className="p-3">
               <Button
                 color="orange"
-                title="ยืนยัน"
+                title={context.totalStep === 5 ? "ยืนยัน" : "เสร็จสิ้น"}
                 onClick={() => {
                   if (context.totalStep === 5) context.stepUp();
                   if (context.totalStep === 3) context.postVoteResult();

@@ -55,7 +55,14 @@ const ConfirmStep1 = () => {
               </div>
             </div>
           </form>
-
+          {context.totalStep === 3 && (
+              <div className="w-full text-center text-[20px] my-[20px]">
+                <p>
+                  เมื่อเลือก <b>“เสร็จสิ้น”</b> จะไม่สามารถแก้ไขได้อีก
+                </p>
+                <p>คุณจะยืนยันการเลือกหรือไม่</p>
+              </div>
+            )}
           <div className="flex flex-row items-center p-4">
             <div className="p-3">
               <Button

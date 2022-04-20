@@ -4,12 +4,16 @@ import React, { useContext } from "react";
 import Button from "./button";
 import mock from "../public/mock-pic.png";
 import Image from "next/image";
+import axios from "../axios"
 import { useRouter } from "next/router";
 
 const ConfirmProfile = () => {
   const context = useContext(coreContext);
   const router = useRouter();
-
+  console.log(context.apiPath+context.user["imagePath"])
+  const myLoader=({src})=>{
+    return context.apiPath+context.user["imagePath"]
+  }
   return (
     <Observer>
       {() => (
@@ -21,22 +25,22 @@ const ConfirmProfile = () => {
           </div>
           <div className="bg-white p-5 w-[40vh]">
           <div className="w-full flex justify-center mb-5">
-            <Image src={mock} height={179} width={145} objectFit="contain" />
+            <Image loader={myLoader} src={context.apiPath+context.user["imagePath"]} height={179} width={145} objectFit="contain" />
             </div>
             <div className="w-full text-center font-bold text-[20px]">
-              นายตึ้ดตึ้ด ตื้อตื่อต่องแต้ง
+              {context.user["firstname"]+" "+context.user["lastname"]} 
             </div>
             <div className="w-full text-center font-bold text-[20px]">
-              62130500234
+            {context.user["studentID"]} 
             </div>
             <div className="w-full text-center text-base_gray text-[18px]">
-              คณะวิศวกรรมศาสตร์
+            {context.user["faculty"]} 
             </div>
             <div className="w-full text-center text-base_gray text-[18px]">
-              ภาควิชาวิศวกรรมคอมพิวเตอร์
+            {"ภาควิชา "+context.user["department"]} 
             </div>
             <div className="w-full text-center text-base_gray text-[18px]">
-              ชั้นปีที่ 3
+            {"ชั้นปีที่ " + context.user["year"]} 
             </div>
           </div>
           <div className="w-full text-center font-bold text-[20px] my-[20px]">
@@ -46,7 +50,7 @@ const ConfirmProfile = () => {
           </div>
           <div className="flex space-x-[6px]">
             <Button color="gray" title="ไม่ถูกต้อง" onClick={() => router.push("https://www.facebook.com/messages/t/329573680505873")} />
-            <Button color="orange" title="ถูกต้อง" onClick={() => null} />
+            <Button color="orange" title="ถูกต้อง" onClick={() => context.stepUp()} />
           </div>
         </div>
       )}

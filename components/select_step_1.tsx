@@ -35,7 +35,7 @@ const SelectStep1 = () => {
               {_.map(context.partyList, (item) => (
                 <label
                   className={
-                    context.selectedParty === item.id
+                    context.selectedParty == item.id
                       ? "flex flex-col p-3 bg-white bg-opacity-40 rounded-md ml-1 mr-1"
                       : "flex flex-col p-3 ml-1 mr-1"
                   }

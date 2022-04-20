@@ -1,27 +1,97 @@
-import { createContext } from 'react'
-import { makeAutoObservable } from 'mobx'
+import { createContext } from "react";
+import { makeAutoObservable } from "mobx";
+import axios from "../axios";
+import _ from "lodash";
 
 class CoreContext {
-  step: number = 1
-  user: object = {}
-  token: null
-  apiPath: String ="http://4.tcp.ngrok.io:18115"
+  step: number = 1;
+  totalStep: number = 5;
+  user = null;
+  partyList = [];
+  selectedParty: string = "";
+  councilList = [];
+  token: null;
+  apiPath: string = "https://election.kmutt.ac.th";
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this);
   }
 
   setValue = (name, value) => {
-    this[name] = value
-  }
+    this[name] = value;
+  };
+
+  prepareParty = async () => {
+    try {
+      const res = await axios.get("/api/party/", {
+        headers: { Authorization: this.token },
+      });
+      if (res.status === 200) {
+        this.partyList = res.data;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  prepareCouncil = async () => {
+    try {
+      const res = await axios.get("/api/council/", {
+        headers: { Authorization: this.token },
+      });
+      if (res.status === 200) {
+        this.councilList = _.map(
+          _.filter(res.data, (item) => item.faculty === this.user.faculty),
+          (item) => ({ ...item, vote: -2 })
+        );
+        console.log(this.councilList);
+        if (_.size(this.councilList) === 0) {
+          this.totalStep = 3;
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  postVoteResult = async () => {
+    try {
+      const body = {
+        council: _.map(this.councilList, (item) => ({
+          id: item.id,
+          choice: item.vote,
+        })),
+        party: _.map(this.partyList, (item) => ({
+          id: item.id,
+          choice: item.id == this.selectedParty ? 1 : 0,
+        })),
+      };
+      const res = await axios.post("/api/vote/", body, {
+        headers: { Authorization: this.token },
+      });
+      if (res.status === 200) {
+        this.step = 7;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  setVote = (index: number, value: number) => {
+    this.councilList[index].vote = value;
+  };
+
+  findParty = () => {
+    return _.find(this.partyList, (item) => item.id == this.selectedParty);
+  };
 
   stepUp = () => {
-    this.step++
-  }
+    this.step++;
+  };
 
   stepDown = () => {
-    this.step--
-  }
+    this.step--;
+  };
 }
 
-export const coreContext = createContext(new CoreContext())
+export const coreContext = createContext(new CoreContext());

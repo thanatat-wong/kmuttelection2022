@@ -1,14 +1,15 @@
 import { coreContext } from "context/core_context";
+import _ from "lodash";
 import { Observer } from "mobx-react-lite";
 import Image from "next/image";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
-import logo from "../public/KMUTT_Logo.png";
 import Button from "./button";
 import StepTwoButton from "./stepTwoButton";
 
 const SelectStep2 = () => {
   const context = useContext(coreContext);
+  const [err, setErr] = useState(false);
 
   return (
     <Observer>
@@ -18,42 +19,105 @@ const SelectStep2 = () => {
             <p className="w-full text-center text-[24px] font-bold">
               เลือกสภานักศึกษา
             </p>
-            <p className="w-full text-center text-[24px]">คณะวิศวกรรมศาสตร์</p>
+            <p className="w-full text-center text-[24px]">
+              {context.user.faculty}
+            </p>
           </div>
           <div className="w-full text-center text-[20px] mt-[10px]">
             โปรดพิจารณาสภานักศึกษาให้ครบทุกคน
           </div>
-          <div className="w-full mt-[10px] px-6 mb-6 flex flex-col space-y-[14px]">
-            <div className="bg-white h-[107px] flex px-[22px] space-x-3">
-              <Image src={logo} width={61} height={75} />
-              <div className="flex flex-col justify-center h-full">
-                <div className="font-bold text-[18px]">
-                  นายเอสไอที เคเอ็มยูทีที
-                </div>
-                <div className="text-[16px]">
-                  ภาควิชาวิศวกรรมคอมพิวเตอร์ ชั้นปีที่ 3
-                </div>
-                <div className="flex space-x-3 pt-[6px]">
-                  <StepTwoButton
-                    active={true}
-                    color="green"
-                    onClick={() => null}
-                  />
-                  <StepTwoButton
-                    active={true}
-                    color="orange"
-                    onClick={() => null}
-                  />
-                  <StepTwoButton
-                    active={true}
-                    color="gray"
-                    onClick={() => null}
-                  />
+          <div className="w-full mt-[10px] px-6 mb-6 grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-y-[14px] gap-x-2">
+            {_.map(context.councilList, (item, index) => (
+              <div className="bg-white h-[107px] flex px-[22px] py-4 space-x-3">
+                <Image
+                  src={context.apiPath + "/api/files/" + item.imageId}
+                  width={61}
+                  height={75}
+                  objectFit="contain"
+                />
+                <div className="flex flex-col justify-center h-full">
+                  <div className="font-bold text-[18px]">
+                    {`${item.firstname} ${item.lastname}`}
+                  </div>
+                  <div className="text-[16px]">
+                    ภาควิชา{item.field} ชั้นปีที่{" "}
+                    {65 - parseInt(item.studentId.substring(0, 2))}
+                  </div>
+                  <div className="flex space-x-3 pt-[6px]">
+                    <StepTwoButton
+                      active={item.vote === 1}
+                      color="green"
+                      onClick={() => {
+                        context.setVote(index, 1);
+                        if (
+                          _.size(
+                            _.filter(
+                              context.councilList,
+                              (item) => item.vote === -2
+                            )
+                          ) === 0
+                        ) {
+                          setErr(false);
+                        }
+                      }}
+                    />
+                    <StepTwoButton
+                      active={item.vote === -1}
+                      color="orange"
+                      onClick={() => {
+                        context.setVote(index, -1);
+                        if (
+                          _.size(
+                            _.filter(
+                              context.councilList,
+                              (item) => item.vote === -2
+                            )
+                          ) === 0
+                        ) {
+                          setErr(false);
+                        }
+                      }}
+                    />
+                    <StepTwoButton
+                      active={item.vote === 0}
+                      color="gray"
+                      onClick={() => {
+                        context.setVote(index, 0);
+                        if (
+                          _.size(
+                            _.filter(
+                              context.councilList,
+                              (item) => item.vote === -2
+                            )
+                          ) === 0
+                        ) {
+                          setErr(false);
+                        }
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-          <Button color="orange" title="ยืนยัน" onClick={() => context.stepUp()} />
+          <div className="flex justify-center text-base_orange font-bold text-[16px]">
+            {err && "กรุณาพิจารณาสภานักศึกษาให้ครบทุกคน"}
+          </div>
+          <Button
+            color="orange"
+            title="ยืนยัน"
+            onClick={() => {
+              if (
+                _.size(
+                  _.filter(context.councilList, (item) => item.vote === -2)
+                ) === 0
+              ) {
+                context.stepUp();
+              } else {
+                setErr(true);
+              }
+            }}
+          />
         </div>
       )}
     </Observer>

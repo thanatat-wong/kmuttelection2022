@@ -35,6 +35,25 @@ const HomeRoute = () => {
                   objectFit="contain"
                 />
               </div>
+              {context.step !== 2 && context.step !== 7 && (
+                <div className="w-full h-[14px] bg-dim_yellow">
+                  <div
+                    className={`h-[14px] bg-base_orange ${
+                      context.totalStep === 5 && context.step === 3 && "w-1/5"
+                    } ${
+                      context.totalStep === 5 && context.step === 4 && "w-2/5"
+                    } ${
+                      context.totalStep === 5 && context.step === 5 && "w-3/5"
+                    } ${
+                      context.totalStep === 5 && context.step === 6 && "w-4/5"
+                    } ${
+                      context.totalStep === 3 && context.step === 3 && "w-1/3"
+                    } ${
+                      context.totalStep === 3 && context.step === 4 && "w-2/3"
+                    }`}
+                  />
+                </div>
+              )}
             </div>
           )}
           {context.step === 1 && <Login />}

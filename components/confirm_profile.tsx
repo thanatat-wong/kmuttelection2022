@@ -4,16 +4,16 @@ import React, { useContext } from "react";
 import Button from "./button";
 import mock from "../public/mock-pic.png";
 import Image from "next/image";
-import axios from "../axios"
+import axios from "../axios";
 import { useRouter } from "next/router";
 
 const ConfirmProfile = () => {
   const context = useContext(coreContext);
   const router = useRouter();
-  console.log(context.apiPath+context.user["imagePath"])
-  const myLoader=({src})=>{
-    return context.apiPath+context.user["imagePath"]
-  }
+  console.log(context.apiPath + context.user["imagePath"]);
+  const myLoader = ({ src }) => {
+    return context.apiPath + context.user["imagePath"];
+  };
   return (
     <Observer>
       {() => (
@@ -24,33 +24,49 @@ const ConfirmProfile = () => {
             </p>
           </div>
           <div className="bg-white p-5 w-[40vh]">
-          <div className="w-full flex justify-center mb-5">
-            <Image loader={myLoader} src={context.apiPath+context.user["imagePath"]} height={179} width={145} objectFit="contain" />
+            <div className="flex justify-center w-full mb-5">
+              <Image
+                loader={myLoader}
+                src={context.apiPath + context.user["imagePath"]}
+                height={179}
+                width={145}
+                objectFit="contain"
+              />
             </div>
             <div className="w-full text-center font-bold text-[20px]">
-              {context.user["firstname"]+" "+context.user["lastname"]} 
+              {context.user["firstname"] + " " + context.user["lastname"]}
             </div>
             <div className="w-full text-center font-bold text-[20px]">
-            {context.user["studentID"]} 
+              {context.user["studentID"]}
             </div>
             <div className="w-full text-center text-base_gray text-[18px]">
-            {context.user["faculty"]} 
+              {context.user["faculty"]}
             </div>
             <div className="w-full text-center text-base_gray text-[18px]">
-            {"ภาควิชา "+context.user["department"]} 
+              {"ภาควิชา " + context.user["department"]}
             </div>
             <div className="w-full text-center text-base_gray text-[18px]">
-            {"ชั้นปีที่ " + context.user["year"]} 
+              {"ชั้นปีที่ " + context.user["year"]}
             </div>
           </div>
           <div className="w-full text-center font-bold text-[20px] my-[20px]">
-            <p>
-              ข้อมูลของท่านถูกต้องหรือไม่
-            </p>
+            <p>ข้อมูลของท่านถูกต้องหรือไม่</p>
           </div>
           <div className="flex space-x-[6px]">
-            <Button color="gray" title="ไม่ถูกต้อง" onClick={() => router.push("https://www.facebook.com/messages/t/329573680505873")} />
-            <Button color="orange" title="ถูกต้อง" onClick={() => context.stepUp()} />
+            <Button
+              color="gray"
+              title="ไม่ถูกต้อง"
+              onClick={() =>
+                router.push(
+                  "https://www.facebook.com/messages/t/329573680505873"
+                )
+              }
+            />
+            <Button
+              color="orange"
+              title="ถูกต้อง"
+              onClick={() => context.stepUp()}
+            />
           </div>
         </div>
       )}

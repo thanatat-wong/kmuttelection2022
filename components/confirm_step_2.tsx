@@ -1,4 +1,5 @@
 import { coreContext } from "context/core_context";
+import _ from "lodash";
 import { Observer } from "mobx-react-lite";
 import React, { useContext } from "react";
 import Button from "./button";
@@ -26,33 +27,27 @@ const ConfirmStep2 = () => {
                   สถานะที่เลือก
                 </div>
               </div>
-              <div className="flex w-full border-b-2 border-dim_gray">
-                <div className="flex items-center w-1/2 text-[16px] font-bold py-1">
-                  นายเอสไอที เคเอ็มยูทีที
+              {_.map(context.councilList, (item) => (
+                <div className="flex w-full border-b-2 border-dim_gray">
+                  <div className="flex items-center w-1/2 text-[16px] font-bold py-1">
+                    {`${item.firstname} ${item.lastname}`}
+                  </div>
+                  <div className="flex items-center w-1/2 py-1 px-[45px] space-x-3">
+                    <div
+                      className={`w-[7px] h-[7px] rounded-full ${
+                        item.vote === 0 && "bg-dim_gray"
+                      }
+                      ${item.vote === 1 && "bg-base_green"}
+                      ${item.vote === -1 && "bg-base_orange"}`}
+                    ></div>
+                    <div className="text-[16px]">
+                      {item.vote === 0 && "งดออกเสียง"}
+                      {item.vote === 1 && "ยอบรับ"}
+                      {item.vote === -1 && "ไม่ยอมรับ"}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center w-1/2 py-1 px-[45px] space-x-3">
-                  <div className="w-[7px] h-[7px] rounded-full bg-base_green"></div>
-                  <div className="text-[16px]">ยอมรับ</div>
-                </div>
-              </div>
-              <div className="flex w-full border-b-2 border-dim_gray">
-                <div className="flex items-center w-1/2 text-[16px] font-bold py-1">
-                  นายเอสไอที เคเอ็มยูทีที
-                </div>
-                <div className="flex items-center w-1/2 py-1 px-[45px] space-x-3">
-                  <div className="w-[7px] h-[7px] rounded-full bg-base_orange"></div>
-                  <div className="text-[16px]">ไม่ยอมรับ</div>
-                </div>
-              </div>
-              <div className="flex w-full border-b-2 border-dim_gray">
-                <div className="flex items-center w-1/2 text-[16px] font-bold py-1">
-                  นายเอสไอที เคเอ็มยูทีที
-                </div>
-                <div className="flex items-center w-1/2 py-1 px-[45px] space-x-3">
-                  <div className="w-[7px] h-[7px] rounded-full bg-dim_gray"></div>
-                  <div className="text-[16px]">ไม่ออกเสียง</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="w-full text-center text-[20px] my-[20px]">
@@ -62,8 +57,16 @@ const ConfirmStep2 = () => {
             <p>คุณจะยืนยันการเลือกหรือไม่</p>
           </div>
           <div className="flex space-x-[6px]">
-            <Button color="gray" title="แก้ไข" onClick={() => context.stepDown()} />
-            <Button color="orange" title="เสร็จสิ้น" onClick={() => context.stepUp()} />
+            <Button
+              color="gray"
+              title="แก้ไข"
+              onClick={() => context.stepDown()}
+            />
+            <Button
+              color="orange"
+              title="เสร็จสิ้น"
+              onClick={() => context.postVoteResult()}
+            />
           </div>
         </div>
       )}

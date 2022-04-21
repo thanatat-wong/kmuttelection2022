@@ -15,7 +15,7 @@ const ConfirmStep2 = () => {
             <p className="w-full text-center text-[24px] font-bold">
               ยืนยันการเลือกสภานักศึกษา
             </p>
-            <p className="w-full text-center text-[24px]">คณะวิศวกรรมศาสตร์</p>
+            <p className="w-full text-center text-[24px]">{context.user.faculty}</p>
           </div>
           <div className="w-full mt-[45px] px-5 pb-5 space-y-[14px] bg-white">
             <div className="flex flex-col space-y-3">

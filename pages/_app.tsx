@@ -12,21 +12,16 @@ const { publicRuntimeConfig } = getConfig();
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Head
-        children={
-          <>
-            <title>KMUTT Election 2022</title>
-            <meta
-              name="viewport"
-              content="initial-scale=1.0, width=device-width"
-            />
-            <Script
-              src="https://kit.fontawesome.com/a7ef51f3aa.js"
-              crossOrigin="anonymous"
-            ></Script>
-          </>
-        }
-      ></Head>
+      <Head><title>KMUTT Election 2022</title>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width"
+        />
+        </Head>
+        <Script
+          src="https://kit.fontawesome.com/a7ef51f3aa.js"
+          crossOrigin="anonymous"
+        ></Script>
       <Component {...pageProps} />
     </>
   );

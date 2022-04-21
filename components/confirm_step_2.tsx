@@ -65,6 +65,7 @@ const ConfirmStep2 = () => {
             <Button
               color="orange"
               title="เสร็จสิ้น"
+              disabled={context.submitting}
               onClick={() => context.postVoteResult()}
             />
           </div>

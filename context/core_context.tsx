@@ -12,6 +12,7 @@ class CoreContext {
   councilList = [];
   token: null;
   apiPath: string = "https://election.kmutt.ac.th";
+  submitting = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -56,6 +57,7 @@ class CoreContext {
 
   postVoteResult = async () => {
     try {
+      this.submitting = true;
       const body = {
         council: _.map(this.councilList, (item) => ({
           id: item.id,
@@ -74,6 +76,8 @@ class CoreContext {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      this.submitting = false;
     }
   };
 

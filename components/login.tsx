@@ -8,6 +8,7 @@ import logo from "../public/KMUTT_Logo.png";
 import electionLogo from "../public/Logo.png";
 import { error } from "console";
 import _ from "lodash";
+import dayjs from "dayjs";
 
 const Login = () => {
   const [isWrongAuthen, setIsWrongAuthen] = useState("");
@@ -19,6 +20,9 @@ const Login = () => {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
     });
+    if(dayjs().isAfter('2022-04-28T13:00:00.000z') || dayjs().isBefore('2022-04-23T01:00:00.000z')) {
+      return setIsWrongAuthen("ไม่สามารถเข้าระบบได้ เนื่องจากไม่อยู่ในช่วงลงคะแนน");
+    }
     axios
       .post("/api/auth/login", body)
       .then((response) => {

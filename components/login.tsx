@@ -19,70 +19,74 @@ const Login = () => {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
     });
-    axios
-      .post("/api/auth/login", body)
-      .then((response) => {
-        let result = response.data;
-        const User = (
-          firstname,
-          lastname,
-          studentID,
-          faculty,
-          department,
-          year,
-          imagePath
-        ) => {
-          return {
-            firstname: firstname,
-            lastname: lastname,
-            studentID: studentID,
-            faculty: faculty,
-            department: department,
-            year: year,
-            imagePath: imagePath,
+    if (usernameRef.current.value != "" && passwordRef.current.value != "") {
+      axios
+        .post("/api/auth/login", body)
+        .then((response) => {
+          let result = response.data;
+          const User = (
+            firstname,
+            lastname,
+            studentID,
+            faculty,
+            department,
+            year,
+            imagePath
+          ) => {
+            return {
+              firstname: firstname,
+              lastname: lastname,
+              studentID: studentID,
+              faculty: faculty,
+              department: department,
+              year: year,
+              imagePath: imagePath,
+            };
           };
-        };
-        const user = User(
-          result.firstnameTH,
-          result.lastnameTH,
-          result.studentId,
-          result.facultyTH,
-          result.fieldTH,
-          result.studentYear,
-          result.imagePath
-        );
-        context.setValue("user", user);
-        context.setValue("token", result.jwttoken);
-        console.log(context.user);
-        console.log(context.token);
-        context.stepUp();
-      })
-      .catch((error) => {
-        if (
-          error.response.data.status == 400 &&
-          _.includes(
-            error.response.data.message.split(`\"`),
-            "คุณได้ทำการโหวตไปแล้ว"
-          )
-        ) {
-          setIsWrongAuthen("คุณได้ทำการโหวตไปแล้ว");
-        }
-        if (
-          error.response.data.status == 400 &&
-          _.includes(
-            error.response.data.message.split(`\"`),
-            "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง"
-          )
-        ) {
-          setIsWrongAuthen("รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง");
-        }
-      });
+          const user = User(
+            result.firstnameTH,
+            result.lastnameTH,
+            result.studentId,
+            result.facultyTH,
+            result.fieldTH,
+            result.studentYear,
+            result.imagePath
+          );
+          context.setValue("user", user);
+          context.setValue("token", result.jwttoken);
+          console.log(context.user);
+          console.log(context.token);
+          context.stepUp();
+        })
+        .catch((error) => {
+          if (
+            error.response.data.status == 400 &&
+            _.includes(
+              error.response.data.message.split(`\"`),
+              "คุณได้ทำการโหวตไปแล้ว"
+            )
+          ) {
+            setIsWrongAuthen("คุณได้ทำการโหวตไปแล้ว");
+          }
+          if (
+            error.response.data.status == 400 &&
+            _.includes(
+              error.response.data.message.split(`\"`),
+              "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง"
+            )
+          ) {
+            setIsWrongAuthen("รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง");
+          }
+        });
+    } if (usernameRef.current.value == "" || passwordRef.current.value == "") {
+      setIsWrongAuthen("กรุณากรอกรหัสนักศึกษาและรหัสผ่านก่อนเข้าสู่ระบบ")
+    }
   };
   return (
     <Observer>
       {() => (
-        <div className="flex flex-col items-center">
-          <div className="flex flex-col items-center w-full h-[90vh] pt-[68px]">
+  
+          <div className="flex flex-col items-center w-full h-[90vh] pt-[68px] ">
             <div>
               <Image src={logo} height={70} width={70} objectFit="contain" />
               <Image
@@ -92,8 +96,8 @@ const Login = () => {
                 objectFit="contain"
               />
             </div>
-            <div>
-              <div className="w-full h-[11vh] flex flex-col justify-center">
+            
+              <div className="shrink-0 w-full flex flex-col justify-center my-px">
                 <p className="w-full text-center text-[24px] font-bold">
                   ระบบการเลือกตั้ง
                 </p>
@@ -104,10 +108,10 @@ const Login = () => {
                   มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
                 </p>
               </div>
-            </div>
+            
 
-            <div>
-              <div className="bg-white p-5 w-[40vh]">
+            
+              <div className="shrink-0 bg-white p-5 w-[300px]">
                 <div className="mb-2">
                   <p className="w-full text-center text-base_gray text-[18px]">
                     เข้าสู่ระบบด้วย KMUTT Internet Account
@@ -155,7 +159,7 @@ const Login = () => {
                   ลืมรหัสผ่าน?
                 </a>
               </div>
-            </div>
+           
             <div className="mt-5 mb-5">
               <Button
                 color="orange"
@@ -163,17 +167,19 @@ const Login = () => {
                 onClick={() => onSubmit()}
               />
             </div>
+            <div className="flex justify-end">
+              <p>สามารถติดตามข้อมูลข่าวสารเพิ่มเติมได้ที่</p>&nbsp;&nbsp;
+              <a
+                className="font-bold text-base_orange"
+                href="https://www.facebook.com/KMUTT-Election-111526570306064"
+              >
+                KMUTT Election
+              </a>
+            </div>
           </div>
-          <div className="flex justify-end">
-            <p>สามารถติดตามข้อมูลข่าวสารเพิ่มเติมได้ที่</p>&nbsp;&nbsp;
-            <a
-              className="font-bold text-base_orange"
-              href="https://www.facebook.com/KMUTT-Election-111526570306064"
-            >
-              KMUTT Election
-            </a>
-          </div>
-        </div>
+          
+
+
       )}
     </Observer>
   );

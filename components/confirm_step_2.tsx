@@ -11,7 +11,7 @@ const ConfirmStep2 = () => {
     <Observer>
       {() => (
         <div className="flex flex-col items-center w-full h-[90vh] pt-[68px]">
-          <div className="w-full h-[11vh] bg-white flex flex-col justify-center">
+          <div className="w-full bg-white flex flex-col justify-center">
             <p className="w-full text-center text-[24px] font-bold">
               ยืนยันการเลือกสภานักศึกษา
             </p>
@@ -32,7 +32,7 @@ const ConfirmStep2 = () => {
                   <div className="flex items-center w-1/2 text-[16px] font-bold py-1">
                     {`${item.firstname} ${item.lastname}`}
                   </div>
-                  <div className="flex items-center w-1/2 py-1 px-[45px] space-x-3">
+                  <div className="flex items-center w-1/2 py-1 pl-[45px] space-x-3">
                     <div
                       className={`w-[7px] h-[7px] rounded-full ${
                         item.vote === 0 && "bg-dim_gray"

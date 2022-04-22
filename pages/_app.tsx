@@ -10,18 +10,20 @@ import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 
 function MyApp({ Component, pageProps }) {
+  
   return (
     <>
       <Head><title>KMUTT Election 2022</title>
         <meta
           name="viewport"
-          content="initial-scale=1.0, width=device-width"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
         </Head>
         <Script
           src="https://kit.fontawesome.com/a7ef51f3aa.js"
           crossOrigin="anonymous"
-        ></Script>
+        >
+        </Script>
       <Component {...pageProps} />
     </>
   );

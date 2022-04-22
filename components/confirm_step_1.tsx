@@ -12,7 +12,7 @@ const ConfirmStep1 = () => {
     <Observer>
       {() => (
         <div className="flex flex-col items-center w-full h-[90vh] pt-[68px]">
-          <div className="w-full h-[11vh] bg-white flex flex-col justify-center">
+          <div className="w-full bg-white flex flex-col justify-center">
             <p className="w-full text-center text-[24px] font-bold ">
               ยืนยันการเลือกคณะกรรมการ
             </p>

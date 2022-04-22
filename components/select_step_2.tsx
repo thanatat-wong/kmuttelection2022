@@ -15,7 +15,7 @@ const SelectStep2 = () => {
     <Observer>
       {() => (
         <div className="flex flex-col items-center w-full h-[90vh] pt-[68px]">
-          <div className="w-full h-[11vh] bg-white flex flex-col justify-center">
+          <div className="w-full bg-white flex flex-col justify-center">
             <p className="w-full text-center text-[24px] font-bold">
               เลือกสภานักศึกษา
             </p>
@@ -26,7 +26,7 @@ const SelectStep2 = () => {
           <div className="w-full text-center text-[20px] mt-[10px]">
             โปรดพิจารณาสภานักศึกษาให้ครบทุกคน
           </div>
-          <div className="w-full mt-[10px] px-6 mb-6 grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-y-[14px] gap-x-2">
+          <div className="w-full mt-[10px] px-6 mb-6 grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-[14px]">
             {_.map(context.councilList, (item, index) => (
               <div className="bg-white h-[107px] flex px-[22px] py-4 space-x-3">
                 <Image

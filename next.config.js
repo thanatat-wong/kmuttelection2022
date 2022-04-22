@@ -7,6 +7,9 @@ const moduleExports = {
   images: {
     domains: ["election.kmutt.ac.th"],
   },
+  experimental: {
+    outputStandalone: true,
+  },
 };
 
 module.exports = moduleExports;

@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
         <Script
           src="https://kit.fontawesome.com/a7ef51f3aa.js"
           crossOrigin="anonymous"
+          id="fontawesome"
         >
         </Script>
       <Component {...pageProps} />

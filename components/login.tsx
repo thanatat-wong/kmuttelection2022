@@ -83,6 +83,15 @@ const Login = () => {
         ) {
           setIsWrongAuthen("รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง");
         }
+        if (
+          error.response.data.status == 400 &&
+          _.includes(
+            error.response.data.message.split(`\"`),
+            "ขอสงวนสิทธิ์กับนักศึกษาที่กำลังศึกษาอยู่"
+          )
+        ) {
+          setIsWrongAuthen("ขอสงวนสิทธิ์กับนักศึกษาที่กำลังศึกษาอยู่");
+        }
       });
   };
   

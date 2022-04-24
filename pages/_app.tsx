@@ -1,30 +1,25 @@
-import "../styles/globals.css";
-import "tailwindcss/tailwind.css";
-
-import React from "react";
 import App from "next/app";
 import Head from "next/head";
 import Script from "next/script";
-import getConfig from "next/config";
-
-const { publicRuntimeConfig } = getConfig();
+import React from "react";
+import "tailwindcss/tailwind.css";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  
   return (
     <>
-      <Head><title>KMUTT Election 2022</title>
+      <Head>
+        <title>KMUTT Election 2022</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
-        </Head>
-        <Script
-          src="https://kit.fontawesome.com/a7ef51f3aa.js"
-          crossOrigin="anonymous"
-          id="fontawesome"
-        >
-        </Script>
+      </Head>
+      <Script
+        src="https://kit.fontawesome.com/a7ef51f3aa.js"
+        crossOrigin="anonymous"
+        id="fontawesome"
+      ></Script>
       <Component {...pageProps} />
     </>
   );

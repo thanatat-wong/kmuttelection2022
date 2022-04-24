@@ -1,7 +1,7 @@
-import { createContext } from "react";
-import { makeAutoObservable } from "mobx";
-import axios from "../axios";
 import _ from "lodash";
+import { makeAutoObservable } from "mobx";
+import { createContext } from "react";
+import axios from "../axios";
 
 class CoreContext {
   step: number = 1;
@@ -45,7 +45,7 @@ class CoreContext {
           _.filter(res.data, (item) => item.faculty === this.user.faculty),
           (item) => ({ ...item, vote: -2 })
         );
-        console.log(this.councilList);
+        // console.log(this.councilList);
         if (_.size(this.councilList) === 0) {
           this.totalStep = 3;
         }

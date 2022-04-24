@@ -9,7 +9,6 @@ import { coreContext } from "context/core_context";
 import { Observer } from "mobx-react-lite";
 import Image from "next/image";
 import React, { useContext } from "react";
-
 import logo from "../public/KMUTT_Logo.png";
 import electionLogo from "../public/Logo.png";
 
@@ -27,12 +26,19 @@ const HomeRoute = () => {
                 มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
               </div>
               <div className="flex items-center justify-center w-full space-x-1 bg-white h-2/3">
-                <Image src={logo} height={33} width={33} objectFit="contain" />
+                <Image
+                  src={logo}
+                  height={33}
+                  width={33}
+                  objectFit="contain"
+                  alt="KMUTT"
+                />
                 <Image
                   src={electionLogo}
                   height={33}
                   width={47}
                   objectFit="contain"
+                  alt="KMUTT Election 2022"
                 />
               </div>
               {context.step !== 2 && context.step !== 7 && (

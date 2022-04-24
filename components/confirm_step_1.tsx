@@ -1,10 +1,8 @@
 import { coreContext } from "context/core_context";
 import { Observer } from "mobx-react-lite";
-import React, { useContext } from "react";
-import logo from "../public/KMUTT_Logo.png";
 import Image from "next/image";
+import React, { useContext } from "react";
 import Button from "./button";
-import _ from "lodash";
 const ConfirmStep1 = () => {
   const context = useContext(coreContext);
 
@@ -45,6 +43,7 @@ const ConfirmStep1 = () => {
                       }
                       width={180}
                       height={246}
+                      alt="Party"
                     />
                   </>
                 ) : (

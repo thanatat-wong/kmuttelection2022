@@ -1,14 +1,12 @@
 import { coreContext } from "context/core_context";
+import dayjs from "dayjs";
 import { Observer } from "mobx-react-lite";
-import React, { useRef, useContext, useState } from "react";
 import Image from "next/image";
-import Button from "./button";
+import React, { useContext, useRef, useState } from "react";
 import axios from "../axios";
 import logo from "../public/KMUTT_Logo.png";
 import electionLogo from "../public/Logo.png";
-import { error } from "console";
-import _ from "lodash";
-import dayjs from "dayjs";
+import Button from "./button";
 
 const Login = () => {
   const [isWrongAuthen, setIsWrongAuthen] = useState("");
@@ -21,10 +19,17 @@ const Login = () => {
       password: passwordRef.current.value,
     });
     if (usernameRef.current.value == "" || passwordRef.current.value == "") {
-      return setIsWrongAuthen("กรุณากรอกรหัสนักศึกษาและรหัสผ่านก่อนเข้าสู่ระบบ")
+      return setIsWrongAuthen(
+        "กรุณากรอกรหัสนักศึกษาและรหัสผ่านก่อนเข้าสู่ระบบ"
+      );
     }
-    if(dayjs().isAfter('2022-04-28T13:00:00.000z') || dayjs().isBefore('2022-04-23T01:00:00.000z')) {
-      return setIsWrongAuthen("ไม่สามารถเข้าระบบได้ เนื่องจากไม่อยู่ในช่วงลงคะแนน");
+    if (
+      dayjs().isAfter("2022-04-28T13:00:00.000z") ||
+      dayjs().isBefore("2022-04-23T01:00:00.000z")
+    ) {
+      return setIsWrongAuthen(
+        "ไม่สามารถเข้าระบบได้ เนื่องจากไม่อยู่ในช่วงลงคะแนน"
+      );
     }
     axios
       .post("/api/auth/login", body)
@@ -60,53 +65,35 @@ const Login = () => {
         );
         context.setValue("user", user);
         context.setValue("token", result.jwttoken);
-        console.log(context.user);
-        console.log(context.token);
+        // console.log(context.user);
+        // console.log(context.token);
         context.stepUp();
       })
       .catch((error) => {
-        if (
-          error.response.data.status == 400 &&
-          _.includes(
-            error.response.data.message.split(`\"`),
-            "คุณได้ทำการโหวตไปแล้ว"
-          )
-        ) {
-          setIsWrongAuthen("คุณได้ทำการโหวตไปแล้ว");
-        }
-        if (
-          error.response.data.status == 400 &&
-          _.includes(
-            error.response.data.message.split(`\"`),
-            "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง"
-          )
-        ) {
-          setIsWrongAuthen("รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง");
-        }
-        if (
-          error.response.data.status == 400 &&
-          _.includes(
-            error.response.data.message.split(`\"`),
-            "ขอสงวนสิทธิ์กับนักศึกษาที่กำลังศึกษาอยู่"
-          )
-        ) {
-          setIsWrongAuthen("ขอสงวนสิทธิ์กับนักศึกษาที่กำลังศึกษาอยู่");
+        if (error.response.data.status == 400) {
+          setIsWrongAuthen(JSON.parse(error.response.data.message).th);
         }
       });
   };
-  
+
   return (
     <Observer>
       {() => (
-
         <div className="flex flex-col items-center w-full h-[90vh] pt-[68px] ">
           <div>
-            <Image src={logo} height={70} width={70} objectFit="contain" />
+            <Image
+              src={logo}
+              height={70}
+              width={70}
+              objectFit="contain"
+              alt="KMUTT"
+            />
             <Image
               src={electionLogo}
               height={70}
               width={100}
               objectFit="contain"
+              alt="KMUTT Election 2022"
             />
           </div>
 
@@ -121,8 +108,6 @@ const Login = () => {
               มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
             </p>
           </div>
-
-
 
           <div className="shrink-0 bg-white p-5 w-[300px]">
             <div className="mb-2">
@@ -181,7 +166,7 @@ const Login = () => {
             />
           </div>
           <div className="flex justify-end">
-            <p>สามารถติดตามข้อมูลข่าวสารเพิ่มเติมได้ที่</p>&nbsp;&nbsp;
+            <p className="pr-1">สามารถติดตามข้อมูลข่าวสารเพิ่มเติมได้ที่</p>
             <a
               className="font-bold text-base_orange"
               href="https://www.facebook.com/KMUTT-Election-111526570306064"
@@ -190,9 +175,6 @@ const Login = () => {
             </a>
           </div>
         </div>
-
-
-
       )}
     </Observer>
   );

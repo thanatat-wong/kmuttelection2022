@@ -1,16 +1,14 @@
 import { coreContext } from "context/core_context";
 import { Observer } from "mobx-react-lite";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import Button from "./button";
-import mock from "../public/mock-pic.png";
-import Image from "next/image";
-import axios from "../axios";
-import { useRouter } from "next/router";
 
 const ConfirmProfile = () => {
   const context = useContext(coreContext);
   const router = useRouter();
-  console.log(context.apiPath + context.user["imagePath"]);
+  // console.log(context.apiPath + context.user["imagePath"]);
   const myLoader = ({ src }) => {
     return context.apiPath + context.user["imagePath"];
   };
@@ -31,6 +29,7 @@ const ConfirmProfile = () => {
                 height={179}
                 width={145}
                 objectFit="contain"
+                alt="Student Picture"
               />
             </div>
             <div className="w-full text-center font-bold text-[20px]">

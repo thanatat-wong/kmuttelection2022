@@ -1,13 +1,18 @@
 import Image from "next/image";
 import React from "react";
-
 import finish from "../public/finish.png";
 
 const Finish = () => {
   return (
     <div className="flex items-center justify-center w-full h-[90vh]">
       <div className="w-[272px] h-[286px] bg-white flex flex-col pt-[37px]">
-        <Image src={finish} width={118} height={118} objectFit="contain" />
+        <Image
+          src={finish}
+          width={118}
+          height={118}
+          objectFit="contain"
+          alt="Thank you"
+        />
         <p className="pt-3 text-center text-[24px] font-bold">
           การเลือกตั้งสำเร็จ
         </p>

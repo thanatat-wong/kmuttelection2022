@@ -3,7 +3,6 @@ import _ from "lodash";
 import { Observer } from "mobx-react-lite";
 import Image from "next/image";
 import React, { useContext, useState } from "react";
-
 import Button from "./button";
 import StepTwoButton from "./stepTwoButton";
 
@@ -34,6 +33,7 @@ const SelectStep2 = () => {
                   width={61}
                   height={75}
                   objectFit="contain"
+                  alt="Nominee"
                 />
                 <div className="flex flex-col justify-center h-full">
                   <div className="font-bold text-[18px]">

@@ -72,12 +72,16 @@ const SelectStep1 = () => {
             </div>
             <div className="flex flex-col items-center p-4">
               <div className="flex space-x-2">
-              <Button
+                <Button
                   color="orange"
                   title="ไม่ยอมรับ"
                   onClick={() => {
-                    context.stepUp();
-                    context.setValue("partyVote", -1);
+                    if (context.selectedParty) {
+                      context.stepUp();
+                      context.setValue("partyVote", -1);
+                    } else {
+                      setErr(true);
+                    }
                   }}
                 />
                 <Button

@@ -18,7 +18,7 @@ const SelectStep1 = () => {
     <Observer>
       {() => (
         <div className="flex flex-col items-center w-full h-[90vh] pt-[68px]">
-          <div className="w-full bg-white flex flex-col justify-center">
+          <div className="flex flex-col justify-center w-full bg-white">
             <p className="w-full text-center text-[24px] font-bold ">
               เลือกคณะกรรมการ
             </p>
@@ -71,17 +71,28 @@ const SelectStep1 = () => {
               {err && "กรุณาเลือกพรรค หรือเลือกงดออกเสียง"}
             </div>
             <div className="flex flex-col items-center p-4">
+              <div className="flex space-x-2">
               <Button
-                color="orange"
-                title="ยืนยัน"
-                onClick={() => {
-                  if (context.selectedParty) {
+                  color="orange"
+                  title="ไม่ยอมรับ"
+                  onClick={() => {
                     context.stepUp();
-                  } else {
-                    setErr(true);
-                  }
-                }}
-              />
+                    context.setValue("partyVote", -1);
+                  }}
+                />
+                <Button
+                  color="green"
+                  title="ยอบรับ"
+                  onClick={() => {
+                    if (context.selectedParty) {
+                      context.stepUp();
+                      context.setValue("partyVote", 1);
+                    } else {
+                      setErr(true);
+                    }
+                  }}
+                />
+              </div>
               <p className="p-2">หรือ</p>
               <Button
                 color="gray"
@@ -89,6 +100,7 @@ const SelectStep1 = () => {
                 onClick={() => {
                   context.stepUp();
                   context.setValue("selectedParty", "");
+                  context.setValue("partyVote", 0);
                 }}
               />
             </div>

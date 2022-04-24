@@ -10,7 +10,7 @@ const ConfirmStep1 = () => {
     <Observer>
       {() => (
         <div className="flex flex-col items-center w-full h-[90vh] pt-[68px]">
-          <div className="w-full bg-white flex flex-col justify-center">
+          <div className="flex flex-col justify-center w-full bg-white">
             <p className="w-full text-center text-[24px] font-bold ">
               ยืนยันการเลือกคณะกรรมการ
             </p>
@@ -26,6 +26,10 @@ const ConfirmStep1 = () => {
               <div className="h-full row-span-5 pl-5 pr-5 pd-5">
                 {context.selectedParty ? (
                   <>
+                    <p className=" text-center text-[24px] font-bold ">
+                      {context.partyVote === 1 && <span className="text-green-600">ยอมรับ</span>}
+                      {context.partyVote === -1 && <span className="text-base_orange">ไม่ยอมรับ</span>}
+                    </p>
                     <div className="flex flex-row justify-center p-1">
                       <p className=" text-center text-[24px] font-bold ">
                         หมายเลข {context.selectedParty}

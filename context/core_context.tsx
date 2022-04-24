@@ -9,6 +9,7 @@ class CoreContext {
   user = null;
   partyList = [];
   selectedParty: string = "";
+  partyVote: number = -2;
   councilList = [];
   token: null;
   apiPath: string = "https://election.kmutt.ac.th";
@@ -65,7 +66,7 @@ class CoreContext {
         })),
         party: _.map(this.partyList, (item) => ({
           id: item.id,
-          choice: item.id == this.selectedParty ? 1 : 0,
+          choice: this.partyVote,
         })),
       };
       const res = await axios.post("/api/vote/", body, {

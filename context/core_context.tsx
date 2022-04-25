@@ -11,6 +11,7 @@ class CoreContext {
   selectedParty: string = "";
   partyVote: number = -2;
   councilList = [];
+  userImage = null
   token: null;
   apiPath: string = "https://election.kmutt.ac.th";
   submitting = false;
@@ -30,6 +31,21 @@ class CoreContext {
       });
       if (res.status === 200) {
         this.partyList = res.data;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  prepareUserImage = async () => {
+    try {
+      const res = await axios.get(this.user.imagePath, {
+        headers: { Authorization: this.token },
+        responseType: "arraybuffer"
+      },
+      );
+      if (res.status === 200) {
+        const base64 = Buffer.from(new Int8Array(res.data)).toString('base64')
+        this.userImage = base64
       }
     } catch (err) {
       console.log(err);

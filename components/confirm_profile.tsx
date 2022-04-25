@@ -2,16 +2,15 @@ import { coreContext } from "context/core_context";
 import { Observer } from "mobx-react-lite";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import Button from "./button";
 
 const ConfirmProfile = () => {
   const context = useContext(coreContext);
   const router = useRouter();
-  // console.log(context.apiPath + context.user["imagePath"]);
-  const myLoader = ({ src }) => {
-    return context.apiPath + context.user["imagePath"];
-  };
+  useEffect(() => {
+    context.prepareUserImage();
+  });
   return (
     <Observer>
       {() => (
@@ -24,8 +23,7 @@ const ConfirmProfile = () => {
           <div className="bg-white p-5 w-[40vh]">
             <div className="flex justify-center w-full mb-5">
               <Image
-                loader={myLoader}
-                src={context.apiPath + context.user["imagePath"]}
+                src={`data:;base64,${context.userImage}`}
                 height={179}
                 width={145}
                 objectFit="contain"
